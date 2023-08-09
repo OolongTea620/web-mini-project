@@ -18,3 +18,5 @@ pip --version
 ```
 $ pip install -r requirements.txt
 ```
+
+다들 화이팅!
