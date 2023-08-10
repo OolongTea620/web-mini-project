@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <!-- Webpage Title -->
+    <title>개발자는 뭐시기</title>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bulma CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <script src="/static/js/insertVideo.js" defer> </script>
+</head>
+
+<body>
+    <div style="width: 1000px; margin: auto;">
+        <div class="tile is-parent">
+            <div class="row-12">
+                <label class="visually-hidden" for="inlineFormInputGroupUsername">YOUTUBE URL</label>
+                <div class="input-group">
+                    <input id="video-url"type="text" class="form-control" placeholder="Username">
+                </div>
+            </div>
+            <div class="row-12">
+                <label class="visually-hidden" for="inlineFormSelectPref">모드</label>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="mode" id="mode-rest" value="rest">
+                    <label class="form-check-label" for="inlineRadio1">빈둥</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="mode" id="mode-work" value="work">
+                    <label class="form-check-label" for="inlineRadio2">일</label>
+                </div>
+            </div>
+
+            <div class="row-12">
+                <label class="visually-hidden" for="inlineFormSelectPref">타입</label>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="type" id="type-music" value="music">
+                    <label class="form-check-label" for="inlineRadio1">음악</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="type" id="type-video" value="video">
+                    <label class="form-check-label" for="inlineRadio2">영상</label>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <span class="input-group-text">태그들</span>
+                <textarea id="tags" class="form-control" aria-label="With textarea"></textarea>
+              </div>
+
+            <div class="row-12">
+                <button onclick="insert_video()" type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
