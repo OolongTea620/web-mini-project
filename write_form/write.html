@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="./write.css" rel="stylesheet" type="text/css" />
+
+</head>
+<body>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600' rel='stylesheet' type='text/css'>
+<link href="//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css" rel="stylesheet">
+
+<div class="testbox">
+  <h1>등록하기</h1>
+
+  <form action="/">
+      <hr>
+    <div class="mode">
+        <sapn>모드</sapn>
+      <input type="radio" value="None" id="radioOne" name="mode" checked/>
+      <label for="radioOne" class="radio" >일모드</label>
+      <input type="radio" value="None" id="radioTwo" name="mode" />
+      <label for="radioTwo" class="radio">빈둥모드</label>
+    </div>
+   
+  <hr>
+  <div class="type">
+    <span>타입</span>
+    <input type="radio" value="None" id="male" name="type" checked/>
+    <label for="male" class="radio" chec>노래</label>
+    <input type="radio" value="None" id="female" name="type" />
+    <label for="female" class="radio">영상</label>
+   </div> 
+
+  <!-- <label id="icon" for="name"><i class="icon-envelope "></i></label> -->
+<div>TITLE: </div>
+  <input type="text" name="name" id="name" placeholder="제목을 입력하세요." required/>
+  <!-- <label id="icon" for="name"><i class="icon-user"></i></label> -->
+  <div>URL: </div>
+  <input type="text" name="name" id="name" placeholder="URL을 입력하세요." required/>
+  <!-- <label id="icon" for="name"><i class="icon-shield"></i></label> -->
+  <div>TAG: </div>
+  <input type="text" name="name" id="name" placeholder="#태그" required/>
+  
+   <p>모드와 타입을 잘 선택하셨나요? <a href="#">확인해주세요.</a>.</p>
+   <a href="#" class="button">등록하기</a>
+  </form>
+</div>
+</body>
+</html>
