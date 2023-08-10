@@ -17,7 +17,6 @@ def home():
 @app.route('/auth')
 def token_received_home():
     token_receive = request.cookies.get('mytoken')
-
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
         user_info = db.user.find_one({"id": payload['id']})
@@ -26,7 +25,10 @@ def token_received_home():
         return render_template('index.html')
     except jwt.exceptions.DecodeError:
         return render_template('index.html')
-
+    
+@app.route('/video',methods=["GET"])
+def video_page():
+    return render_template('form.html')
 
 @app.route('/home', methods=["GET"])
 def return_video_list():
