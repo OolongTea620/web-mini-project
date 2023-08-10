@@ -3,7 +3,6 @@ from pymongo import MongoClient
 import certifi
 
 app = Flask(__name__)
-
 ca = certifi.where()
 
 import time
@@ -52,7 +51,34 @@ def return_videos():
 
     return jsonify({'videos': movie_list})
 
-# 로직 추가
+@app.route('/video/<string:mode>')
+def mode_type_render(mode):
+    mode_name = "빈둥" if mode == "rest" else "일"
+    return render_template('videos.html', mode_name=mode_name)
+
+@app.route('/video/insert', methods=["POST"])
+def video_insert() :
+    video_receive = request.form['video_give']
+
+    doc = {
+        
+    }
+    
+
+# @app.route("/bucket", methods=["POST"])
+# def bucket_post():
+#     bucket_receive = request.form['bucket_give']
+    
+#     bucket_list = list(db.bucket.find({}, {'_id': False}))
+#     count = len(bucket_list) + 1
+#     doc = {
+#         'num': count,
+#         'bucket' :bucket_receive,
+#         'done' : 0 
+#     }
+#     db.bucket.insert_one(doc)
+
+#     return jsonify({'result': '✉ 버킷 저장 완료!'})
 
 @app.route('/login')
 def login():
