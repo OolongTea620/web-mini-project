@@ -1,11 +1,126 @@
+/* Font : Jua */
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
 
 body {
-    background-color: rebeccapurple;
-}
-.row {
-    background-color: blue;
+    font-family: 'Jua', sans-serif;
 }
 
-.depend {
-    background-color: red;
+.title {
+    width: 80%;
+    height: 20%;
+
+    position: absolute;
+    top: 20%;
+    left: 50%;
+
+    margin-left: -40%;
+
+    text-align: center;
+}
+
+.title > h1 {
+    font-size: 4vw;
+}
+
+.title > h2 {
+    margin: 2vw;
+
+    font-size: 1.2vw;
+}
+
+.title > button {
+    margin: 3vw;
+
+    font-size: 1.5vw;
+
+    border-color: skyblue;
+    background-color: skyblue;
+}
+
+.title > button:hover {
+    border-color: skyblue;
+    background-color: skyblue;
+
+    animation: jelly 0.3s
+}
+
+.video_list {
+    width: 80%;
+
+    position: absolute;
+    top: 70%;
+    left: 50%;
+
+    margin-left: -40%;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+    row-gap: 4.5%;
+    column-gap: 2.5%;
+}
+
+.card {
+    height: 31.5vw;
+}
+
+.card_image {
+    width: 95%;
+    margin: 0.55vw auto;
+
+    border-radius: 20px 20px 20px 20px;
+}
+
+.card_title {
+    width: 95%;
+    margin: 0.2vw auto;
+
+    font-size: 2vw;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card_tags {
+    width: 95%;
+    height: 5vw;
+    margin: 0.2vw auto;
+
+    font-size: 1vw;
+}
+
+.card_tag {
+    display: inline-block;
+}
+
+/* .card_button {
+    width: 20%;
+    height: 2vw;
+    margin: 0.6vw;
+
+    font-size: 0.8vw;
+
+    border: none;
+    border-radius: 10px;
+    background-color: rgb(135, 206, 235, 0);
+}
+
+.card_button:hover {
+    background-color: rgb(135, 206, 235, 0.3);
+} */
+
+@keyframes jelly {
+    25% {
+        transform: scale(0.9, 1.1);
+    }
+
+    50% {
+        transform: scale(1.1, 0.9);
+    }
+
+    75% {
+        transform: scale(0.95, 1.05);
+    }
 }
