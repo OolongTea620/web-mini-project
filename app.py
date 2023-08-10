@@ -1,22 +1,14 @@
 from flask import Flask, render_template, request, jsonify
 from pymongo import MongoClient
-import certifi
+from bs4 import BeautifulSoup
+import certifi, requests, jwt, datetime, hashlib
 
 app = Flask(__name__)
 ca = certifi.where()
-
-import time
-
 client = MongoClient('mongodb+srv://test:sparta@cluster0.xyzecw1.mongodb.net/?retryWrites=true&w=majority',tlsCAFile=ca)
 db = client.dbsparta
 
 SECRET_KEY = 'SPARTA'
-
-import jwt
-
-import datetime
-
-import hashlib
 
 @app.route('/')
 def home():
@@ -37,19 +29,50 @@ def token_received_home():
 
 
 @app.route('/home', methods=["GET"])
-def return_videos():
-    hour = time.localtime(time.time()).tm_hour
-    if (9 <= hour & hour <= 17):
-        is_working_time = True
-    else:
-        is_working_time = False
-    
-    if (is_working_time):
-        movie_list = list(db.work_videos.find({}, {'_id': False}))
-    else:
-        movie_list = list(db.rest_videos.find({}, {'_id': False}))
+def return_video_list():
+    mode = request.args['mode']
 
-    return jsonify({'videos': movie_list})
+    if (mode == 'work'):
+        video_list = list(db.work_videosss.find({}, {'_id': False}))
+    else:
+        video_list = list(db.rest_videosss.find({}, {'_id': False}))
+
+    return jsonify({'res_videoList': video_list})
+
+@app.route('/home', methods=["POST"])
+def add_videos():
+    video_url = request.form['req_url']
+    # 동영상 ID 추출 후 썸네일 주소 추출
+    video_id = search_id(video_url)
+    thumbnail_url = 'https://img.youtube.com/vi/%s/hqdefault.jpg'%video_id
+    # 동영상 제목 크롤링
+    response = requests.get(video_url)
+    soup = BeautifulSoup(response.text, 'html.parser')
+    title = soup.select_one('meta[itemprop="name"][content]')['content']
+    # 태그 1차 가공 : 구분
+    tag_text = request.form['req_tag']
+    tags = tag_text.split(';')
+    # 태그 2차 가공 : 공백 제거
+    tag_list = []
+    for tag in tags:
+        new_tag = tag.replace(" ", "")
+        tag_list.append(new_tag)
+    
+    tag_list.pop()
+
+    doc = {
+        'thumbnail_url': thumbnail_url,
+        'title': title,
+        'tag': tag_list
+    }
+
+    mode = request.form['req_mode']
+    if (mode == 'work'):
+        db.work_videosss.insert_one(doc)
+    else:
+        db.rest_videosss.insert_one(doc)
+
+    return jsonify({'msg': '동영상 추가 성공!'})
 
 @app.route('/video/<string:mode>')
 def mode_type_render(mode):
@@ -144,6 +167,18 @@ def api_valid():
     except jwt.exceptions.DecodeError:
         return jsonify({'result': 'fail', 'msg': '로그인 정보가 존재하지 않습니다.'})
 
+
+def search_id(url):
+    start_index = url.find('=')
+    last_index = url.find('&')
+    id_from_url = ''
+
+    if last_index == -1:
+        id_from_url = url[start_index + 1:]
+    else:
+        id_from_url = url[start_index + 1:last_index]
+    
+    return id_from_url
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5001, debug=True)

@@ -23,19 +23,19 @@
 
 <script>
     function registerPage() {
-            window.location.href = '/register';
-        }
-    
-    function loginPage() {
-            window.location.href = '/login';
-        }
+        window.location.href = '/register';
+    }
 
-    function logout(){
+    function loginPage() {
+        window.location.href = '/login';
+    }
+
+    function logout() {
         $.removeCookie('mytoken');
         alert('로그아웃!');
-        window.location.href='/';
-      }
-    console.log({nickname})
+        window.location.href = '/';
+    }
+    console.log({ nickname })
 </script>
 
 <body>
@@ -44,12 +44,13 @@
         <h2>일을 해야 하지만 하기 싫고 빈둥거리고 싶어 블라블라블라</h2>
         <button class="btn btn-primary" onclick="registerPage()">Sign Up :D</button>
         <button class="btn btn-primary" onclick="loginPage()">Login :></button>
-
+        <button class="btn btn-primary" id="addVideo_btn">Add Video :)</button>
+        <button class="btn btn-primary" id="changeMode_btn" onclick="request_videoList(value)">Change Mode :O</button>
         <h5 class="subtitle">나의 닉네임은: {{nickname}}</h5>
         <button class="button is-danger" onclick="logout()">로그아웃하기</button>
     </div>
 
-    <div class="movie_list" >
+    <div class="video_list">
         <div class="cards" id="card_list">
         </div>
     </div>
