@@ -53,17 +53,6 @@ function request_videoList(userMode) {
 }
 
 document.getElementById("addVideo_btn").onclick = function () {
-    let url = "https://www.youtube.com/watch?v=758K-5ztV74";
-    let mode = 'work';
-    let tag = '음악; 플레이리스트; 잔잔;';
-
-    let formData = new FormData();
-    formData.append('req_url', url)
-    formData.append('req_mode', mode)
-    formData.append('req_tag', tag)
-
-    fetch('/home', { method: "POST", body: formData }).then((res) => res.json()).then((data) => {
-        console.log(data);
-        alert(data['msg']);
-    })
+    window.location.href = '/video';
 }
+

@@ -16,19 +16,42 @@ body {
     margin-left: -40%;
 
     text-align: center;
+
+    animation: backInLeft 1s;
 }
 
-.title > h1 {
+@keyframes backInLeft {
+    0% {
+      transform: translateX(-2000px) scale(0.7);
+      opacity: 0.7;
+    }
+  
+    80% {
+      transform: translateX(0px) scale(0.7);
+      opacity: 0.7;
+    }
+  
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  
+  .backInLeft {
+    animation-name: backInLeft;
+  }
+
+.title>h1 {
     font-size: 4vw;
 }
 
-.title > h2 {
+.title>h2 {
     margin: 2vw;
 
     font-size: 1.2vw;
 }
 
-.title > button {
+.title>button {
     margin: 3vw;
 
     font-size: 1.5vw;
@@ -37,7 +60,7 @@ body {
     background-color: skyblue;
 }
 
-.title > button:hover {
+.title>button:hover {
     border-color: skyblue;
     background-color: skyblue;
 
