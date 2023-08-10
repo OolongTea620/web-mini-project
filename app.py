@@ -1,18 +1,14 @@
 from flask import Flask, render_template, request, jsonify
 from pymongo import MongoClient
 from bs4 import BeautifulSoup
-import certifi
-import requests
-import jwt
-import datetime
-import hashlib
-import re
+import certifi, requests, jwt, datetime, hashlib,re
 
 app = Flask(__name__)
 ca = certifi.where()
-SECRET_KEY = 'SPARTA'
 client = MongoClient('mongodb+srv://test:sparta@cluster0.xyzecw1.mongodb.net/?retryWrites=true&w=majority',tlsCAFile=ca)
 db = client.dbsparta
+
+SECRET_KEY = 'SPARTA'
 
 @app.route('/')
 def home():
@@ -69,7 +65,8 @@ def add_videos():
     doc = {
         'thumbnail_url': thumbnail_url,
         'title': title,
-        'tag': tag_list
+        'tag': tag_list,
+        'video_id' : video_id
     }
 
     mode = request.form['req_mode']
@@ -80,60 +77,34 @@ def add_videos():
 
     return jsonify({'msg': '동영상 추가 성공!'})
 
-@app.route('/insert/video/', methods=["GET"])
-def insert_render():
-    return render_template('temp.html')
-
 @app.route('/video/<string:mode>')
 def mode_type_render(mode):
     mode_name = "빈둥" if mode == "rest" else "일"
     return render_template('videos.html', mode_name=mode_name)
 
-
-
-## 승일님 과 겹칠수도
-def search_id(url):
-    id_from_url = ''
-
-    if url:
-        regex = re.compile(r'^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*')
-        matches = regex.match(url)
-    if matches:
-        id_from_url += matches.group(7)
-    return id_from_url
-
-def get_nick_by_token(token):
-    payload = jwt.decode(token, SECRET_KEY, algorithms=['HS256'])
-    nick = payload['nick']
-    return nick
-
 @app.route('/video/insert', methods=["POST"])
 def video_insert() :
-    
-    video_url = request.form["video_url"]
-    mode_name = request.form['mode']
-    tags = request.form['tags']
-    
-    video_id = search_id(video_url)
-    thumbnail_url= f'https://img.youtube.com/vi/{video_id}/mqdefault.jpg'
-    # nick = get_nick_by_token(request.cookies.get('mytoken'))
-    
+    video_receive = request.form['video_give']
+
     doc = {
-        "thumbnail_url" : thumbnail_url,
-	 	"title" : "this is title",
-	 	"tags" : list(tags.split(",")),
-	 	"video_id" : video_id,
-        # "writer" : nick  
+        
     }
     
-    if (mode_name == "rest") :
-        db.rest_videos.insert_one(doc)
-    else :
-        db.work_videos.insert_one(doc)
-    return jsonify({"result": "ok"})
-    
-## 승일님과 겹칠수도    
 
+# @app.route("/bucket", methods=["POST"])
+# def bucket_post():
+#     bucket_receive = request.form['bucket_give']
+    
+#     bucket_list = list(db.bucket.find({}, {'_id': False}))
+#     count = len(bucket_list) + 1
+#     doc = {
+#         'num': count,
+#         'bucket' :bucket_receive,
+#         'done' : 0 
+#     }
+#     db.bucket.insert_one(doc)
+
+#     return jsonify({'result': '✉ 버킷 저장 완료!'})
 
 @app.route('/login')
 def login():
@@ -201,15 +172,13 @@ def api_valid():
 
 
 def search_id(url):
-    start_index = url.find('=')
-    last_index = url.find('&')
     id_from_url = ''
 
-    if last_index == -1:
-        id_from_url = url[start_index + 1:]
-    else:
-        id_from_url = url[start_index + 1:last_index]
-    
+    if url:
+        regex = re.compile(r'^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*')
+        matches = regex.match(url)
+        if matches:
+            id_from_url += matches.group(7)
     return id_from_url
 
 if __name__ == '__main__':
