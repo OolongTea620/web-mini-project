@@ -6,13 +6,17 @@ app = Flask(__name__)
 
 ca = certifi.where()
 
-DB_URL=''
+DB_URL='mongodb+srv://sparta:test@cluster0.gbxhkwc.mongodb.net/?retryWrites=true&w=majority'
 client = MongoClient(DB_URL,tlsCAFile=ca)
 db = client.dbsparta
 
 @app.route('/')
 def home():
     return render_template('index.html')
+
+@app.route('/video',methods=["GET"])
+def video_page():
+    return render_template('form.html')
 
 
 # 로직 추가

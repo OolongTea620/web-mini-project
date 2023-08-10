@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="/static/css/form.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <form class="form">
+        <h2>등록하기</h2>
+        <!-- <select class="selectpicker" type="MODE:" style="width:100px;height:30px;color:grey;">
+            <option>일모드</option>
+            <option>빈둥모드</option>
+            <option>기타</option>
+          </select> -->
+          <div>
+            <input type="radio" name="chk_info" value="HTML">빈둥 모드
+            <input type="radio" name="chk_info" value="CSS">일 모드
+          </div>
+         
+            <!-- <p class="type" type="TYPE"><input placeholder=""></input></p>
+            <p class="mode" type="MODE"><input placeholder=""></input></p> -->
+        <p type="TITLE:"><input placeholder="제목을 입력해주세요."></input></p>
+        <p type="URL:"><input placeholder="url을 입력해주세요."></input></p>
+        <p type="TAG:"><input placeholder="내용을 입력해주세요."></input></p>
+        <button>글쓰기</button>
+        <div>
+          <span class="fa fa-phone"></span>입력한 정보가 맞습니까?
+          <span class="fa fa-envelope-o"></span> 
+        </div>
+      </form>
+</body>
+<script>
+    $('.selectpicker').selectpicker();
+    $('.selectpicker').selectpicker({
+  style: 'btn-info',
+  size: 3
+});
+</script>
+</html>
