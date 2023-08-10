@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 from pymongo import MongoClient
 from bs4 import BeautifulSoup
-import certifi, requests, time
+import certifi, requests
 
 app = Flask(__name__)
 
@@ -17,17 +17,12 @@ def home():
 
 @app.route('/home', methods=["GET"])
 def return_video_list():
-    # 서버 PC에서 로컬 시각 측정 후 그에 맞는 로직 실행
-    hour = time.localtime(time.time()).tm_hour
-    if (9 <= hour & hour <= 17):
-        is_working_time = True
-    else:
-        is_working_time = False
-    
-    if (is_working_time):
+    mode = request.args['mode']
+
+    if (mode == 'work'):
         video_list = list(db.work_videosss.find({}, {'_id': False}))
     else:
-        video_list = list(db.rest_videos.find({}, {'_id': False}))
+        video_list = list(db.rest_videosss.find({}, {'_id': False}))
 
     return jsonify({'res_videoList': video_list})
 
@@ -62,7 +57,7 @@ def add_videos():
     if (mode == 'work'):
         db.work_videosss.insert_one(doc)
     else:
-        db.rest_videos.insert_one(doc)
+        db.rest_videosss.insert_one(doc)
 
     return jsonify({'msg': '동영상 추가 성공!'})
 
