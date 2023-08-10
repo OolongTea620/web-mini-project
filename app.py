@@ -25,7 +25,7 @@ def return_video_list():
         is_working_time = False
     
     if (is_working_time):
-        video_list = list(db.work_videos.find({}, {'_id': False}))
+        video_list = list(db.work_videosss.find({}, {'_id': False}))
     else:
         video_list = list(db.rest_videos.find({}, {'_id': False}))
 
@@ -41,19 +41,30 @@ def add_videos():
     response = requests.get(video_url)
     soup = BeautifulSoup(response.text, 'html.parser')
     title = soup.select_one('meta[itemprop="name"][content]')['content']
+    # 태그 1차 가공 : 구분
+    tag_text = request.form['req_tag']
+    tags = tag_text.split(';')
+    # 태그 2차 가공 : 공백 제거
+    tag_list = []
+    for tag in tags:
+        new_tag = tag.replace(" ", "")
+        tag_list.append(new_tag)
+    
+    tag_list.pop()
 
     doc = {
         'thumbnail_url': thumbnail_url,
-        'title': title
+        'title': title,
+        'tag': tag_list
     }
 
     mode = request.form['req_mode']
     if (mode == 'work'):
-        db.work_videos.insert_one(doc)
+        db.work_videosss.insert_one(doc)
     else:
         db.rest_videos.insert_one(doc)
 
-    return jsonify({'msg': '성공!'})
+    return jsonify({'msg': '동영상 추가 성공!'})
 
 # 로직 추가
 
