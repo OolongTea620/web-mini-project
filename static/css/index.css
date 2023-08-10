@@ -44,7 +44,7 @@ body {
     animation: jelly 0.3s
 }
 
-.movie_list {
+.video_list {
     width: 80%;
 
     position: absolute;
@@ -95,7 +95,7 @@ body {
     display: inline-block;
 }
 
-.card_button {
+/* .card_button {
     width: 20%;
     height: 2vw;
     margin: 0.6vw;
@@ -109,7 +109,7 @@ body {
 
 .card_button:hover {
     background-color: rgb(135, 206, 235, 0.3);
-}
+} */
 
 @keyframes jelly {
     25% {
