@@ -1,4 +1,6 @@
+beautifulsoup4==4.12.2
 blinker==1.6.2
+bs4==0.0.1
 certifi==2023.7.22
 cffi==1.15.1
 charset-normalizer==3.2.0
@@ -17,6 +19,7 @@ pycparser==2.21
 PyJWT==2.8.0
 pymongo==4.4.1
 requests==2.31.0
+soupsieve==2.4.1
 urllib3==2.0.4
 Werkzeug==2.3.6
 zipp==3.16.2
