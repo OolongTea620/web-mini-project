@@ -1,6 +1,14 @@
-function insert_video() {
+$(document).ready(function () {
+    $('#btn').val('work');
+});
+
+function change_mode(mode) {
+    $('#btn').val(mode);
+}
+
+function insert_video(value) {
     let video_url = $('#url').val();
-    let mode = $("#mode").val();
+    let mode = value;
     // let type = $("input[name='type']:checked").val() //radio로 가정
     let tags = $("#tag").val();
 
@@ -13,6 +21,7 @@ function insert_video() {
     fetch('/home', { method: "POST", body: formdata })
         .then((response) => response.json())
         .then((data) => {
+            alert(data['msg']);
             window.location.href = '/';
         });
 }

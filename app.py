@@ -10,8 +10,8 @@ import re
 
 app = Flask(__name__)
 ca = certifi.where()
-client = MongoClient('mongodb+srv://test:sparta@cluster0.xyzecw1.mongodb.net/?retryWrites=true&w=majority',tlsCAFile=ca)
-db = client.dbsparta
+client = MongoClient('mongodb+srv://seungitnow:tmd123@cluster0.qg1bilm.mongodb.net/?retryWrites=true&w=majority',tlsCAFile=ca)
+db = client.dbseungitnow
 SECRET_KEY = 'SPARTA'
 
 @app.route('/')
