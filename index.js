@@ -13,21 +13,17 @@ $(document).ready(function () {
         mode = 'rest';
     }
 
-    request_videoList(mode);
+    request_videoList();
 });
 
 function request_videoList(userMode) {
     let nextMode;
-    let mode_text;
     if (userMode == 'work') {
         nextMode = 'rest';
-        mode_text = "지금은 💻 하는 중..."
     }
     else {
         nextMode = 'work';
-        mode_text="지금은 🤹‍♂️ 하는 중..."
     }
-    $("#mode-text").text(mode_text)
 
     $('#changeMode_btn').val(nextMode);
 
@@ -45,7 +41,7 @@ function request_videoList(userMode) {
             let tagList = video['tag']
 
             let youtubeId = video['video_id'];
-            let youtubePlayer = youtubeId + 'player';
+            let youtubePlayer= youtubeId+'player';
 
             let tags = "";
             for (let tag in tagList) {
@@ -65,6 +61,7 @@ function request_videoList(userMode) {
                 <div class="modal-dialog custom-modal">
                     <div class="modal-content">
                         <div class="modal-header">
+
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -75,7 +72,7 @@ function request_videoList(userMode) {
                     </div>
                 </div>
             </div>`;
-
+            
 
             $('#card_list').append(video_card);
             $('#modal_list').append(modal_card);
@@ -84,36 +81,49 @@ function request_videoList(userMode) {
 }
 
 document.getElementById("addVideo_btn").onclick = function () {
-    window.location.href = '/video';
+    let url = "https://www.youtube.com/watch?v=758K-5ztV74";
+    let mode = 'work';
+    let tag = '음악; 플레이리스트; 잔잔;';
+
+    let formData = new FormData();
+    formData.append('req_url', url)
+    formData.append('req_mode', mode)
+    formData.append('req_tag', tag)
+
+    fetch('/home', { method: "POST", body: formData }).then((res) => res.json()).then((data) => {
+        console.log(data);
+        alert(data['msg']);
+        window.location.reload();
+    })
 }
 
 //유튜브 id베이스로 모달창 재생하기, 닫기버튼 누를시 멈추도록 
-function modalPlay(youtubeId, youtubePlayer) {
+function modalPlay(youtubeId, youtubePlayer){
     let player;
 
-    $(`#${youtubeId}`).on('shown.bs.modal', function () {
+$(`#${youtubeId}`).on('shown.bs.modal', function () {
 
-        player = new YT.Player(`${youtubePlayer}`, {
-            height: '350',
-            width: '567',
-            videoId: youtubeId,
-            playerVars: {
-                modestbranding: '1',
-                showinfo: '0',
-                autoplay: '1',
-                rel: '0'
-            },
+    player = new YT.Player(`${youtubePlayer}`, {
+       height: '350',
+        width: '567',
+        videoId: youtubeId,
+        playerVars: {
+            modestbranding: '1',
+            showinfo: '0',
+            autoplay: '1',
+            rel: '0'
+        },
 
-            events: {
-                'onReady': function (event) { event.target.playVideo(); }
-            }
-        });
+        events: {
+            'onReady': function (event) { event.target.playVideo(); }
+        }
     });
+});
 
-    $(`#${youtubeId}`).on('hidden.bs.modal', function () {
-        player.stopVideo();
-        var parent = $(`#${youtubePlayer}`).parent();
-        parent.html(`<div id="${youtubePlayer}"></div>`);
-    });
+$(`#${youtubeId}`).on('hidden.bs.modal', function () {
+    player.stopVideo();
+    var parent = $(`#${youtubePlayer}`).parent();
+    parent.html(`<div id="${youtubePlayer}"></div>`);
+});
 
 }

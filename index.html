@@ -19,34 +19,44 @@
     <title>개발자는 일하지만 빈둥거리고 싶어</title>
     <link rel="stylesheet" href="/static/css/index.css">
     <script src="/static/js/index.js" defer> </script>
-    <script src="/static/js/auth.js" defer> </script>
     <style>
         .custom-modal {
-            max-width: 90%;
-            width: 600px;
+         max-width: 90%; 
+         width: 600px;
         }
+
     </style>
 </head>
+
+<script>
+    function registerPage() {
+        window.location.href = '/register';
+    }
+
+    function loginPage() {
+        window.location.href = '/login';
+    }
+
+    function logout() {
+        $.removeCookie('mytoken');
+        alert('로그아웃!');
+        window.location.href = '/';
+    }
+    console.log({ nickname })
+</script>
 
 <body>
     <div class="title">
         <h1>개발자는 일하지만 빈둥거리고 싶어</h1>
         <h2>일을 해야 하지만 하기 싫고 빈둥거리고 싶어 블라블라블라</h2>
-
-        {% if nickname %}
-        <button class="btn btn-primary" id="addVideo_btn">Add Video :)</button>
-        {% else %}
         <button class="btn btn-primary" onclick="registerPage()">Sign Up :D</button>
         <button class="btn btn-primary" onclick="loginPage()">Login :></button>
-        {% endif %}
+        <button class="btn btn-primary" id="addVideo_btn">Add Video :)</button>
         <button class="btn btn-primary" id="changeMode_btn" onclick="request_videoList(value)">Change Mode :O</button>
-        
-        {% if nickname %}
         <h5 class="subtitle">나의 닉네임은: {{nickname}}</h5>
         <button class="button is-danger" onclick="logout()">로그아웃하기</button>
-        {% endif %}
-        <h3 id="mode-text">지금은 하는 중</h3>
     </div>
+
     <div class="video_list">
         <div class="cards" id="card_list">
         </div>

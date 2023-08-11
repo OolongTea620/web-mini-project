@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+  <link rel="stylesheet" href="/static/css/write.css">
+  <script src="/static/js/write.js" defer> </script>
+
+</head>
+
+<body>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600' rel='stylesheet'
+    type='text/css'>
+  <link href="//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+  <div class="testbox">
+    <a href="/auth"><span class="material-symbols-outlined" id="close-icon">
+        cancel
+        </span> 
+    </a>   
+        <h1>등록하기</h1>
+
+    <form action="/">
+      <hr>
+      <div class="mode">
+        <sapn>모드</sapn>
+        <input type="radio" value="work" onclick="change_mode(value)" id="radioOne" name="mode" checked />
+        <label for="radioOne" class="radio">일모드</label>
+        <input type="radio" value="rest" onclick="change_mode(value)" id="radioTwo" name="mode" />
+        <label for="radioTwo" class="radio">빈둥모드</label>
+      </div>
+
+      <hr>
+      <div class="type">
+        <!-- <span>타입</span>
+        <input type="radio" value="None" id="male" name="type" checked />
+        <label for="male" class="radio" chec>노래</label>
+        <input type="radio" value="None" id="female" name="type" />
+        <label for="female" class="radio">영상</label> -->
+      </div>
+
+      <!-- <label id="icon" for="name"><i class="icon-envelope "></i></label> -->
+      <div>URL: </div>
+      <input type="search" name="name" id="url" placeholder="URL을 입력하세요." required />
+      <!-- <label id="icon" for="name"><i class="icon-user"></i></label> -->
+      <!-- <div>MODE: </div>
+      <input type="text" name="name" id="name" placeholder="URL을 입력하세요." required /> -->
+      <!-- <label id="icon" for="name"><i class="icon-shield"></i></label> -->
+      <div>TAG: </div>
+      <input type="search" name="name" id="tag" placeholder="#태그" required />
+
+      <p>부적절한 영상이나 음악은 제한될 수도 있습니다. <a href="#">확인해주세요.</a>.</p>
+      <a href="#" class="button" id="btn" onclick="insert_video(this.value)">등록하기</a>
+    </form>
+  </div>
+</body>
+
+</html>

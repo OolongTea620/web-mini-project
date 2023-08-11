@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="/static/css/form.css" rel="stylesheet" type="text/css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+  <script src="/static/js/form.js" defer> </script>/won
+</head>
+
+<body>
+
+  <h2>등록하기</h2>
+  <!-- <select class="selectpicker" type="MODE:" style="width:100px;height:30px;color:grey;">
+            <option>일모드</option>
+            <option>빈둥모드</option>
+            <option>기타</option>
+          </select> -->
+  <div>
+    <input type="radio" name="chk_info" value="HTML">빈둥 모드
+    <input type="radio" name="chk_info" value="CSS">일 모드
+  </div>
+
+  <!-- <p class="type" type="TYPE"><input placeholder=""></input></p>
+            <p class="mode" type="MODE"><input placeholder=""></input></p> -->
+  <!-- <p type="URL:" id="input_url"><input placeholder="동영상 주소를 입력해주세요."></input></p>
+  <p type="MODE:" id="input_mode"><input placeholder="모드를 입력해주세요. (work/rest)"></input></p>
+  <p type="TAG:" id="input_tag"><input placeholder="태그를 입력해주세요. ( ; 로 구분)"></input></p> -->
+  <button onclick="insert_video()">글쓰기</button>
+  <div>
+    <span class="fa fa-phone"></span>입력한 정보가 맞습니까?
+    <span class="fa fa-envelope-o"></span>
+  </div>
+
+  <textarea class="form-control" placeholder="Leave a comment here" id="url" style="height: 100px"></textarea>
+  <textarea class="form-control" placeholder="Leave a comment here" id="mode" style="height: 100px"></textarea>
+  <textarea class="form-control" placeholder="Leave a comment here" id="tag" style="height: 100px"></textarea>
+
+</body>
+<script>
+  // $('.selectpicker').selectpicker();
+  // $('.selectpicker').selectpicker({
+  //   style: 'btn-info',
+  //   size: 3
+  // });
+</script>
+
+</html>
