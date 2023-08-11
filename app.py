@@ -12,6 +12,7 @@ app = Flask(__name__)
 ca = certifi.where()
 client = MongoClient('mongodb+srv://seungitnow:tmd123@cluster0.xyzecw1.mongodb.net/?retryWrites=true&w=majority',tlsCAFile=ca)
 db = client.dbseungitnow
+SECRET_KEY = 'SPARTA'
 
 @app.route('/')
 def home():
