@@ -85,12 +85,6 @@ def add_videos():
 def insert_render():
     return render_template('temp.html')
 
-@app.route('/video/<string:mode>')
-def mode_type_render(mode):
-    mode_name = "빈둥" if mode == "rest" else "일"
-    return render_template('videos.html', mode_name=mode_name)
-
-## 승일님 과 겹칠수도
 def search_id(url):
     id_from_url = ''
 
@@ -173,7 +167,7 @@ def api_login():
     if result is not None:
         payload = {
             'id': id_receive,
-            'exp': datetime.datetime.utcnow() + datetime.timedelta(seconds=10)
+            'exp': datetime.datetime.utcnow() + datetime.timedelta(seconds=3600)
         }
         token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
 

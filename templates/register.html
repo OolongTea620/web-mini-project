@@ -16,43 +16,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
 
-    <script>
-        // 간단한 회원가입 함수입니다.
-        // 아이디, 비밀번호, 닉네임을 받아 DB에 저장합니다.
-        function register() {
-            let id = $('#userid').val();
-            let pw = $('#userpw').val();
-            let nickname = $('#usernick').val();
+    <script src="/static/js/auth.js" defer> </script>
 
-            if (id.trim() === '' || pw.trim() === '' || nickname.trim() === '') {
-                alert('값을 입력해주세요.');
-                return; 
-            }
-
-            $.ajax({
-                type: "POST",
-                url: "/api/register",
-                data: {
-                    id_give: id,
-                    pw_give: pw,
-                    nickname_give: nickname 
-                },
-                success: function (response) {
-                    if (response['result'] == 'success') {
-                        alert('회원가입이 완료되었습니다.')
-                        window.location.href = '/login'
-                    } else {
-                        alert(response['msg'])
-                    }
-                }
-            })
-        }
-
-        function validateForm(){
-            
-        }
-
-    </script>
 </head>
 
 <body>

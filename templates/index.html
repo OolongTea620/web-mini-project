@@ -19,6 +19,7 @@
     <title>개발자는 일하지만 빈둥거리고 싶어</title>
     <link rel="stylesheet" href="/static/css/index.css">
     <script src="/static/js/index.js" defer> </script>
+    <script src="/static/js/auth.js" defer> </script>
     <style>
         .custom-modal {
             max-width: 90%;
@@ -26,23 +27,6 @@
         }
     </style>
 </head>
-
-<script>
-    function registerPage() {
-        window.location.href = '/register';
-    }
-
-    function loginPage() {
-        window.location.href = '/login';
-    }
-
-    function logout() {
-        $.removeCookie('mytoken');
-        alert('로그아웃!');
-        window.location.href = '/';
-    }
-    console.log({ nickname })
-</script>
 
 <body>
     <div class="title">
