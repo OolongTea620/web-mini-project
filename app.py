@@ -10,8 +10,7 @@ import re
 
 app = Flask(__name__)
 ca = certifi.where()
-SECRET_KEY = 'SPARTA'
-client = MongoClient('mongodb+srv://seungitnow:tmd123@cluster0.qg1bilm.mongodb.net/?retryWrites=true&w=majority',tlsCAFile=ca)
+client = MongoClient('mongodb+srv://seungitnow:tmd123@cluster0.xyzecw1.mongodb.net/?retryWrites=true&w=majority',tlsCAFile=ca)
 db = client.dbseungitnow
 
 @app.route('/')
@@ -32,7 +31,7 @@ def token_received_home():
     
 @app.route('/video',methods=["GET"])
 def video_page():
-    return render_template('form.html')
+    return render_template('write.html')
 
 @app.route('/home', methods=["GET"])
 def return_video_list():
