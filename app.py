@@ -10,8 +10,8 @@ import re
 
 app = Flask(__name__)
 ca = certifi.where()
-client = MongoClient('mongodb+srv://seungitnow:tmd123@cluster0.xyzecw1.mongodb.net/?retryWrites=true&w=majority',tlsCAFile=ca)
-db = client.dbseungitnow
+client = MongoClient('mongodb+srv://test:sparta@cluster0.xyzecw1.mongodb.net/?retryWrites=true&w=majority',tlsCAFile=ca)
+db = client.dbsparta
 SECRET_KEY = 'SPARTA'
 
 @app.route('/')
@@ -167,7 +167,7 @@ def api_login():
     if result is not None:
         payload = {
             'id': id_receive,
-            'exp': datetime.datetime.utcnow() + datetime.timedelta(seconds=10)
+            'exp': datetime.datetime.utcnow() + datetime.timedelta(seconds=3600)
         }
         token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
 
