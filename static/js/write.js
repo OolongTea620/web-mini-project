@@ -22,6 +22,6 @@ function insert_video(value) {
         .then((response) => response.json())
         .then((data) => {
             alert(data['msg']);
-            window.location.href = '/';
+            window.location.href = '/auth';
         });
 }
