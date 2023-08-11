@@ -16,7 +16,7 @@ pip --version
 ❗ 반드시 venv 실행된 상태에서 실행!!!
 
 ```
-$ pip install -r requirements.txt
+$ pip install -r requirements.txt 
 ```
 
 ### 주요 Denpendency 설명

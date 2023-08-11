@@ -1,13 +1,17 @@
 from flask import Flask, render_template, request, jsonify
 from pymongo import MongoClient
 from bs4 import BeautifulSoup
-import certifi, requests, jwt, datetime, hashlib
+import certifi
+import requests
+import jwt
+import datetime
+import hashlib
+import re
 
 app = Flask(__name__)
 ca = certifi.where()
-client = MongoClient('mongodb+srv://test:sparta@cluster0.xyzecw1.mongodb.net/?retryWrites=true&w=majority',tlsCAFile=ca)
-db = client.dbsparta
-
+client = MongoClient('mongodb+srv://seungitnow:tmd123@cluster0.xyzecw1.mongodb.net/?retryWrites=true&w=majority',tlsCAFile=ca)
+db = client.dbseungitnow
 SECRET_KEY = 'SPARTA'
 
 @app.route('/')
@@ -17,7 +21,6 @@ def home():
 @app.route('/auth')
 def token_received_home():
     token_receive = request.cookies.get('mytoken')
-
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
         user_info = db.user.find_one({"id": payload['id']})
@@ -26,16 +29,19 @@ def token_received_home():
         return render_template('index.html')
     except jwt.exceptions.DecodeError:
         return render_template('index.html')
-
+    
+@app.route('/video',methods=["GET"])
+def video_page():
+    return render_template('write.html')
 
 @app.route('/home', methods=["GET"])
 def return_video_list():
     mode = request.args['mode']
 
     if (mode == 'work'):
-        video_list = list(db.work_videosss.find({}, {'_id': False}))
+        video_list = list(db.work_videos.find({}, {'_id': False}))
     else:
-        video_list = list(db.rest_videosss.find({}, {'_id': False}))
+        video_list = list(db.rest_videos.find({}, {'_id': False}))
 
     return jsonify({'res_videoList': video_list})
 
@@ -63,45 +69,63 @@ def add_videos():
     doc = {
         'thumbnail_url': thumbnail_url,
         'title': title,
-        'tag': tag_list
+        'tag': tag_list,
+        'video_id' : video_id
     }
 
     mode = request.form['req_mode']
     if (mode == 'work'):
-        db.work_videosss.insert_one(doc)
+        db.work_videos.insert_one(doc)
     else:
-        db.rest_videosss.insert_one(doc)
+        db.rest_videos.insert_one(doc)
 
     return jsonify({'msg': '동영상 추가 성공!'})
 
-@app.route('/video/<string:mode>')
-def mode_type_render(mode):
-    mode_name = "빈둥" if mode == "rest" else "일"
-    return render_template('videos.html', mode_name=mode_name)
+@app.route('/insert/video/', methods=["GET"])
+def insert_render():
+    return render_template('temp.html')
+
+def search_id(url):
+    id_from_url = ''
+
+    if url:
+        regex = re.compile(r'^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*')
+        matches = regex.match(url)
+    if matches:
+        id_from_url += matches.group(7)
+    return id_from_url
+
+def get_nick_by_token(token):
+    payload = jwt.decode(token, SECRET_KEY, algorithms=['HS256'])
+    nick = payload['nick']
+    return nick
 
 @app.route('/video/insert', methods=["POST"])
 def video_insert() :
-    video_receive = request.form['video_give']
-
+    
+    video_url = request.form["video_url"]
+    mode_name = request.form['mode']
+    tags = request.form['tags']
+    
+    video_id = search_id(video_url)
+    thumbnail_url= f'https://img.youtube.com/vi/{video_id}/mqdefault.jpg'
+    # nick = get_nick_by_token(request.cookies.get('mytoken'))
+    
     doc = {
-        
+        "thumbnail_url" : thumbnail_url,
+	 	"title" : "this is title",
+	 	"tags" : list(tags.split(",")),
+	 	"video_id" : video_id,
+        # "writer" : nick  
     }
     
-
-# @app.route("/bucket", methods=["POST"])
-# def bucket_post():
-#     bucket_receive = request.form['bucket_give']
+    if (mode_name == "rest") :
+        db.rest_videos.insert_one(doc)
+    else :
+        db.work_videos.insert_one(doc)
+    return jsonify({"result": "ok"})
     
-#     bucket_list = list(db.bucket.find({}, {'_id': False}))
-#     count = len(bucket_list) + 1
-#     doc = {
-#         'num': count,
-#         'bucket' :bucket_receive,
-#         'done' : 0 
-#     }
-#     db.bucket.insert_one(doc)
-
-#     return jsonify({'result': '✉ 버킷 저장 완료!'})
+## 승일님과 겹칠수도    
 
 @app.route('/login')
 def login():
@@ -169,15 +193,13 @@ def api_valid():
 
 
 def search_id(url):
-    start_index = url.find('=')
-    last_index = url.find('&')
     id_from_url = ''
 
-    if last_index == -1:
-        id_from_url = url[start_index + 1:]
-    else:
-        id_from_url = url[start_index + 1:last_index]
-    
+    if url:
+        regex = re.compile(r'^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*')
+        matches = regex.match(url)
+        if matches:
+            id_from_url += matches.group(7)
     return id_from_url
 
 if __name__ == '__main__':

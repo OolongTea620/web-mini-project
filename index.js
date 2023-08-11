@@ -13,7 +13,7 @@ $(document).ready(function () {
         mode = 'rest';
     }
 
-    request_videoList(mode);
+    request_videoList();
 });
 
 function request_videoList(userMode) {
@@ -61,6 +61,7 @@ function request_videoList(userMode) {
                 <div class="modal-dialog custom-modal">
                     <div class="modal-content">
                         <div class="modal-header">
+
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -71,7 +72,7 @@ function request_videoList(userMode) {
                     </div>
                 </div>
             </div>`;
-
+            
 
             $('#card_list').append(video_card);
             $('#modal_list').append(modal_card);
