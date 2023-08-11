@@ -7,7 +7,7 @@
   <title>Document</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
-  <link rel="stylesheet" href="/static/css/write.css">
+  <link rel="stylesheet" href="/web-mini-project/static/css/write.css">
   <script src="/static/js/write.js" defer> </script>
 
 </head>
@@ -16,9 +16,14 @@
   <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600' rel='stylesheet'
     type='text/css'>
   <link href="//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
   <div class="testbox">
-    <h1>등록하기</h1>
+    <a href="/index.html"><span class="material-symbols-outlined" id="close-icon">
+        cancel
+        </span> 
+    </a>   
+        <h1>등록하기</h1>
 
     <form action="/">
       <hr>
@@ -49,7 +54,7 @@
       <div>TAG: </div>
       <input type="search" name="name" id="tag" placeholder="#태그" required />
 
-      <p>모드와 타입을 잘 선택하셨나요? <a href="#">확인해주세요.</a>.</p>
+      <p>부적절한 영상이나 음악은 제한될 수도 있습니다. <a href="#">확인해주세요.</a>.</p>
       <a href="#" class="button" id="btn" onclick="insert_video(this.value)">등록하기</a>
     </form>
   </div>
