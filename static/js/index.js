@@ -18,12 +18,16 @@ $(document).ready(function () {
 
 function request_videoList(userMode) {
     let nextMode;
+    let mode_text;
     if (userMode == 'work') {
         nextMode = 'rest';
+        mode_text = "지금은 💻 하는 중..."
     }
     else {
         nextMode = 'work';
+        mode_text="지금은 🤹‍♂️ 하는 중..."
     }
+    $("#mode-text").text(mode_text)
 
     $('#changeMode_btn').val(nextMode);
 
