@@ -159,8 +159,8 @@ hr {
   opacity: 0.3;
 }
 
-input[type=text],
-input[type=text] {
+input[type=search],
+input[type=search] {
   margin-bottom: 0px;
   width: 260px;
   height: 39px;
